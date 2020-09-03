@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../src/component/layout/Navbar/NavBar';
-import User from './component/users/User'
+import User from './component/users/User';
 
 import './App.css';
+import { useState } from 'react';
+import Axios from 'axios';
 
-class App extends React.Component {
-  constructor() {
-    super();
+const App = ()=>{
+
+  const [users,setUsers]= useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+
+    setLoading(true)
+    const data = fetchUser();
+    setUsers(data)
+    console.log(data)
+    setLoading(false)
+
+  },[])   
+  
+  const fetchUser = () =>{
+    return Axios.get("https://api.github.com/users");
   }
 
-  render() {
+
 
     return (
       <div className="App">
@@ -19,15 +35,15 @@ class App extends React.Component {
         />
 
         <div className="container">
-          <User />
+          <User loading={loading} usersProps={users}/>
 
         </div>
 
       </div>
     );
   }
+  
 
 
-}
 
 export default App;

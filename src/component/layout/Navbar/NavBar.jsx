@@ -3,30 +3,13 @@ import PropTypes from 'prop-types';
 
 
 
-class NavBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
+const NavBar = ({title,icon}) => {
 
-    static defaultProps = {
-        title: 'git',
-        icon: 'fab fa-github'
-    }
-
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired
-    }
-
-
-
-    render() {
         return (
             <nav className="navbar bg-primary">
                 <h1>
-                    <i className={this.props.icon} />
-                    {this.props.title}
+                    <i className={icon} />
+                    {title}
                 </h1>
 
 
@@ -34,7 +17,18 @@ class NavBar extends Component {
 
 
         );
-    }
+    
+}
+
+
+NavBar.defaultProps = {
+    title: 'git',
+    icon: 'fab fa-github'
+}
+
+NavBar.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired
 }
 
 export default NavBar;
