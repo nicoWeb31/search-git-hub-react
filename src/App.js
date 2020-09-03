@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import NavBar from '../src/component/layout/Navbar/NavBar';
 import User from './component/users/User';
+import Search from './component/search/Seaerch'
 
 import './App.css';
 import { useState } from 'react';
@@ -28,9 +29,6 @@ const App = () => {
 
 
 
-
-
-
   return (
     <div className="App">
       <NavBar
@@ -38,6 +36,7 @@ const App = () => {
         icon="fab fa-github"
       />
 
+      <Search />
       <div className="container">
         <User loading={loading} users={users} />
 
