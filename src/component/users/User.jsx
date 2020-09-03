@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import UserItems from "./UserItems"
+import UserItems from "./UserItems";
+import Spinner from '../spinner/Spinner';
+import PropTypes from "prop-types"
 
-const User = ({loading, usersProps}) => {
 
-    const [users,setUsers] = useState()
+const User = ({loading, users}) => {
+
+  
 
     const userStyle = {
         display:'grid',
@@ -16,15 +19,28 @@ const User = ({loading, usersProps}) => {
     return (
         <div style={userStyle}>
         {
-            users.map(u =>(
+            loading ? 
+            (
+                <Spinner/>
+            ):
+            (
+
+                users.map(u =>(
                 <UserItems avatar_url={u.avatar_url} login={u.login}  html_url={u.html_url} key={u.id} user={u}
                 
                 />
             ))
+            )
         }        
 
         </div>
     );
+
+}
+
+User.prototype= {
+    users: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
 
 }
 

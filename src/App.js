@@ -6,43 +6,47 @@ import './App.css';
 import { useState } from 'react';
 import Axios from 'axios';
 
-const App = ()=>{
+const App = () => {
 
-  const [users,setUsers]= useState([])
+  const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
 
     setLoading(true)
-    const data = fetchUser();
-    setUsers(data)
-    console.log(data)
+    async function fetchData() {
+      await Axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
+        setUsers(response.data)
+      })
+    }
+    fetchData()
     setLoading(false)
+    console.log(users)
 
-  },[])   
-  
-  const fetchUser = () =>{
-    return Axios.get("https://api.github.com/users");
-  }
+  }, [])
 
 
 
-    return (
-      <div className="App">
-        <NavBar
-          title="Github finder"
-          icon="fab fa-github"
-        />
 
-        <div className="container">
-          <User loading={loading} usersProps={users}/>
 
-        </div>
+
+  return (
+    <div className="App">
+      <NavBar
+        title="Github finder"
+        icon="fab fa-github"
+      />
+
+      <div className="container">
+        <User loading={loading} users={users} />
 
       </div>
-    );
-  }
-  
+
+    </div>
+  );
+}
+
 
 
 
