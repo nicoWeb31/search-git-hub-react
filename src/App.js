@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import NavBar from '../src/component/layout/Navbar/NavBar';
 import User from './component/users/User';
+import Use from './component/users/Use';
 import Search from './component/search/Seaerch';
 import Alert from './component/layout/alert/Alert';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -15,6 +16,7 @@ const App = () => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState(null)
+  const [user, setuser] = useState({})
 
 
   const searchUser = (text) => {
@@ -37,6 +39,22 @@ const App = () => {
     setUsers([]);
     setLoading(false)
   }
+
+  //get single Github user 
+  const getUser =(username)=>{
+    setLoading(true)
+    
+    async function fetchDat() {
+      await Axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
+        setuser(response.data)
+        setLoading(false)
+        console.log(response)
+      })
+    }
+    fetchDat()
+  }
+
 
 
   //set Alert 
@@ -75,6 +93,10 @@ const App = () => {
         )} />
 
         <Route exact path='/about' component={About}/>
+
+        <Route exact path='/user/:login' render={props=>(
+          <Use {...props} getUser={getUser} user={user} loading={loading}/>
+        )} />
 
 
 
