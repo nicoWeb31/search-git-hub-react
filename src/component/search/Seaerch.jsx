@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import PropTypes from "prop-types"
 
-const Seaerch = ({searchUsers}) => {
+const Seaerch = ({ searchUsers,clearSearch,showClear,setAlert}) => {
 
     const [input, setInput] = useState({
         text: ''
@@ -16,10 +16,15 @@ const Seaerch = ({searchUsers}) => {
     }
 
 
-    const handleSubmit =  e => {
+    const handleSubmit = e => {
         e.preventDefault();
-        searchUsers(input.text);
-        setInput({text:''})
+        if(input.text === '' ){
+            setAlert("please enter something","light")
+        }else{
+            
+            searchUsers(input.text);
+            setInput({ text: '' })
+        }
 
     }
     return (
@@ -29,12 +34,23 @@ const Seaerch = ({searchUsers}) => {
                 <input type="submit" value="Search" className="btn btn-dark btn-block" />
             </form>
 
+            {
+                showClear &&
+            <button className="btn btn-light btn-block" onClick={clearSearch}>
+                clear
+            </button>
+
+            }
+
         </div>
     );
 }
 
 Seaerch.defaultProps = {
-    searchUsers: PropTypes.func.isRequired
+    searchUsers: PropTypes.func.isRequired,
+    clearSearch: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired,
+    setAlert: PropTypes.func.isRequired
 }
 
 export default Seaerch;

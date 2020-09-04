@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import NavBar from '../src/component/layout/Navbar/NavBar';
 import User from './component/users/User';
 import Search from './component/search/Seaerch';
-
+import Alert from './component/layout/alert/Alert'
 
 import './App.css';
 import { useState } from 'react';
@@ -12,21 +12,7 @@ const App = () => {
 
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
-
-  // useEffect(() => {
-
-  //   setLoading(true)
-  //   async function fetchData() {
-  //     await Axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-  //     &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
-  //       setUsers(response.data)
-  //     })
-  //   }
-  //   fetchData()
-  //   setLoading(false)
-  //   console.log(users)
-
-  // }, [])
+  const [alert, setAlert] = useState(null)
 
 
   const searchUser = (text) =>{
@@ -45,6 +31,20 @@ const App = () => {
 
   }
 
+  const clearSearchUser = () =>{
+    setUsers([]);
+    setLoading(false)
+  }
+
+
+  //set Alert 
+  const AlertMessage = (msg,type) =>{
+    setAlert({msg,type})
+
+    setTimeout(()=> setAlert(null),5000)
+    console.log(alert)
+  } 
+
 
 
   return (
@@ -53,10 +53,20 @@ const App = () => {
         title="Github finder"
         icon="fab fa-github"
       />
+      <Alert alert={alert}/>
 
-      <Search searchUsers={searchUser} />
+      <Search 
+      searchUsers={searchUser} 
+      clearSearch={clearSearchUser}
+      showClear={users.length > 0 ? true : false }
+      setAlert={AlertMessage}  
+      />
+
+
+
+
       <div className="container">
-        <User loading={loading} users={users} />
+        <User loading={loading} users={users}  />
 
       </div>
 
