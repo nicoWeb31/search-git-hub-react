@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import PropTypes from "prop-types"
 
-const Seaerch = () => {
+const Seaerch = ({searchUsers}) => {
 
     const [input, setInput] = useState({
         text: ''
@@ -17,7 +18,8 @@ const Seaerch = () => {
 
     const handleSubmit =  e => {
         e.preventDefault();
-        console.log(input)
+        searchUsers(input.text);
+        setInput({text:''})
 
     }
     return (
@@ -29,6 +31,10 @@ const Seaerch = () => {
 
         </div>
     );
+}
+
+Seaerch.defaultProps = {
+    searchUsers: PropTypes.func.isRequired
 }
 
 export default Seaerch;
