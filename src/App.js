@@ -17,6 +17,7 @@ const App = () => {
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState(null)
   const [user, setuser] = useState({})
+  const [repos, setRepos] =useState([])
 
 
   const searchUser = (text) => {
@@ -54,6 +55,22 @@ const App = () => {
     }
     fetchDat()
   }
+
+  //get user repos
+  const getUserRepos =(username)=>{
+    setLoading(true)
+    
+    async function fetchDat() {
+      await Axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
+        setRepos(response.data)
+        setLoading(false)
+        console.log(response)
+      })
+    }
+    fetchDat()
+  }
+  
 
 
 
@@ -95,7 +112,7 @@ const App = () => {
         <Route exact path='/about' component={About}/>
 
         <Route exact path='/user/:login' render={props=>(
-          <Use {...props} getUser={getUser} user={user} loading={loading}/>
+          <Use {...props} getUser={getUser} user={user} loading={loading} getUserRepos={getUserRepos} repos={repos}/>
         )} />
 
 

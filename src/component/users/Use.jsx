@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import Repos from "../repos/RepoItems"
 
-const Use = ({match, user,loading,getUser}) => {
+const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
 
     const styleAvart ={
         width: '150px'
     }
 
     useEffect(() => {
-        getUser(match.params.login)
+        getUser(match.params.login);
+        getUserRepos(match.params.login)
     }, [])
 
 
@@ -85,7 +87,7 @@ const Use = ({match, user,loading,getUser}) => {
             </div>
         </div>
 
-
+        <Repos repos={repos}/>
         </>
 
 
@@ -94,7 +96,9 @@ const Use = ({match, user,loading,getUser}) => {
 
 Use.propTypes = {
     user: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    getUserRepos: PropTypes.func.isRequired,
+    repos: PropTypes.array.isRequired
+    
 }
-
 export default Use;
