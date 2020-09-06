@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import GithunContext from "../../context/github/GithubContext"
 
-const Seaerch = ({ searchUsers,clearSearch,showClear,setAlert}) => {
+const Seaerch = ({ clearSearch,showClear,setAlert}) => {
+
+    const GithunContext = useContext();
 
     const [input, setInput] = useState({
         text: ''
@@ -22,7 +25,7 @@ const Seaerch = ({ searchUsers,clearSearch,showClear,setAlert}) => {
             setAlert("please enter something","light")
         }else{
             
-            searchUsers(input.text);
+            GithunContext.searchUsers(input.text);
             setInput({ text: '' })
         }
 
@@ -47,7 +50,7 @@ const Seaerch = ({ searchUsers,clearSearch,showClear,setAlert}) => {
 }
 
 Seaerch.protoTypes = {
-    searchUsers: PropTypes.func.isRequired,
+
     clearSearch: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,
     setAlert: PropTypes.func.isRequired

@@ -99,7 +99,7 @@ const App = () => {
               <>
                 <div className="container">
                   <Search
-                    searchUsers={searchUser}
+                    
                     clearSearch={clearSearchUser}
                     showClear={users.length > 0 ? true : false}
                     setAlert={AlertMessage}
