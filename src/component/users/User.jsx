@@ -1,11 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import UserItems from "./UserItems";
+import React, { useContext } from 'react';
+import GithubContext from "../../context/github/GithubContext";
 import Spinner from '../spinner/Spinner';
-import PropTypes from "prop-types"
+import UserItems from "./UserItems";
 
 
-const User = ({loading, users}) => {
+const User = (props) => {
+
+    const gitContext = useContext(GithubContext) 
 
   
 
@@ -19,13 +20,13 @@ const User = ({loading, users}) => {
     return (
         <div style={userStyle}>
         {
-            loading ? 
+            gitContext.loading ? 
             (
                 <Spinner/>
             ):
             (
 
-                users.map(u =>(
+                gitContext.users.map(u =>(
                 <UserItems avatar_url={u.avatar_url} login={u.login}  html_url={u.html_url} key={u.id} user={u}
                 
                 />
@@ -38,11 +39,7 @@ const User = ({loading, users}) => {
 
 }
 
-User.prototype= {
-    users: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
 
-}
 
 
 export default User;

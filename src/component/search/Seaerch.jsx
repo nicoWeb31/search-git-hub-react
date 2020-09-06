@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import PropTypes from "prop-types";
-import GithubContext from "../../context/github/GithubContext"
+import GithubContext from "../../context/github/GithubContext";
+import AlertContext from "../../context/alert/AlertContext"
 
-const Seaerch = ({ clearSearch,showClear,setAlert}) => {
+const Seaerch = () => {
 
     const GithubCont = useContext(GithubContext);
+    const AlertCont = useContext(AlertContext)
 
     const [input, setInput] = useState({
         text: ''
@@ -22,7 +23,7 @@ const Seaerch = ({ clearSearch,showClear,setAlert}) => {
     const handleSubmit = e => {
         e.preventDefault();
         if(input.text === '' ){
-            setAlert("please enter something","light")
+            AlertCont.setAlert("please enter something","light")
         }else{
             
             GithubCont.searchUser(input.text);
@@ -38,8 +39,8 @@ const Seaerch = ({ clearSearch,showClear,setAlert}) => {
             </form>
 
             {
-                showClear &&
-            <button className="btn btn-light btn-block" onClick={clearSearch}>
+                GithubCont.users.length > 0 &&
+            <button className="btn btn-light btn-block" onClick={GithubCont.clearSearchUser}>
                 clear
             </button>
 
@@ -47,13 +48,6 @@ const Seaerch = ({ clearSearch,showClear,setAlert}) => {
 
         </div>
     );
-}
-
-Seaerch.protoTypes = {
-
-    clearSearch: PropTypes.func.isRequired,
-    showClear: PropTypes.bool.isRequired,
-    setAlert: PropTypes.func.isRequired
 }
 
 export default Seaerch;

@@ -5,9 +5,8 @@ import githubReducer from "./githubeReducer";
 
 import {
     SEARCH_USERS,
-    SET_ALERT,
     CLEAR_USERS,
-    GET_USERS,
+    GET_USER,
     GET_REPOS,
     SET_LOADING
 } from "../types"
@@ -38,15 +37,46 @@ const GithubState = porps => {
                 payload: response.data.items
             })
         })
-        //setLoading(false)
+
     }
 
     //get user
 
-    //get repos
+    const getUser = async (username) => {
+        setLoading()
+
+        await Axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+        &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
+            dispatch({
+                type: GET_USER,
+                payload: response.data
+            });
+        })
+
+
+
+    }
+
+    //get user repos
+    const getUserRepos = async (username) => {
+        setLoading()
+        await Axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+        &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
+
+            dispatch({
+                type:GET_REPOS,
+                payload: response.data
+            })
+        })
+
+        
+    }
+
 
     //clear user
-
+    const clearSearchUser = () => {
+        dispatch({ type: CLEAR_USERS })
+    }
     //setLoading
 
 
@@ -59,7 +89,10 @@ const GithubState = porps => {
             user: state.user,
             repos: state.repos,
             loading: state.loading,
-            searchUser
+            clearSearchUser,
+            searchUser,
+            getUser,
+            getUserRepos
         }}
     >
 

@@ -1,26 +1,29 @@
-import React, { useEffect } from 'react';
-import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
+import React, { useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import Repos from "../repos/Repos"
+import GithubContext from "../../context/github/GithubContext";
+import Repos from "../repos/Repos";
+import Spinner from "../spinner/Spinner";
 
-const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
+const Use = ({match}) => {
+
+    const gitConst = useContext(GithubContext);
 
     const styleAvart ={
         width: '150px'
     }
 
     useEffect(() => {
-        getUser(match.params.login);
-        getUserRepos(match.params.login);
+        gitConst.getUser(match.params.login);
+        gitConst.getUserRepos(match.params.login);
         //eslint-disable-next-line
     }, [])
-    console.log("repos",repos)
 
-    const {name, avatar_url,location,bio,blog,login,html_url,public_repos,public_gists,hireable,company,followers,following,repos_url} = user;
+
+    const {name, avatar_url,location,bio,blog,login,html_url,public_repos,public_gists,hireable,company,followers,following,repos_url} = gitConst.user;
     console.log("repos url", repos_url)
 
-    if(loading)return <Spinner/>;
+    if(gitConst.loading)return <Spinner/>;
 
     return (
 
@@ -88,18 +91,11 @@ const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
             </div>
         </div>
 
-        <Repos repositprory={repos}/>
+        <Repos repositprory={gitConst.repos}/>
         </>
 
 
     );
 }
 
-Use.propTypes = {
-    user: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired,
-    getUserRepos: PropTypes.func.isRequired,
-    repos: PropTypes.array.isRequired
-    
-}
 export default Use;
