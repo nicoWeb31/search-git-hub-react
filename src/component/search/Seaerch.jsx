@@ -46,7 +46,7 @@ const Seaerch = ({ searchUsers,clearSearch,showClear,setAlert}) => {
     );
 }
 
-Seaerch.defaultProps = {
+Seaerch.protoTypes = {
     searchUsers: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,

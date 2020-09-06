@@ -12,12 +12,13 @@ const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
 
     useEffect(() => {
         getUser(match.params.login);
-        getUserRepos(match.params.login)
+        getUserRepos(match.params.login);
+        //eslint-disable-next-line
     }, [])
     console.log("repos",repos)
 
-    const {name, avatar_url,location,bio,blog,login,html_url,public_repos,public_gists,hireable,company,followers,following} = user;
-
+    const {name, avatar_url,location,bio,blog,login,html_url,public_repos,public_gists,hireable,company,followers,following,repos_url} = user;
+    console.log("repos url", repos_url)
 
     if(loading)return <Spinner/>;
 
