@@ -1,7 +1,7 @@
 import {createContext} from "react";
 
-const GitnubContext = createContext();
+const GithubContext = createContext();
 
 
 
-export default GitnubContext;
+export default GithubContext;

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import PropTypes from "prop-types";
-import GithunContext from "../../context/github/GithubContext"
+import GithubContext from "../../context/github/GithubContext"
 
 const Seaerch = ({ clearSearch,showClear,setAlert}) => {
 
-    const GithunContext = useContext();
+    const GithubCont = useContext(GithubContext);
 
     const [input, setInput] = useState({
         text: ''
@@ -25,7 +25,7 @@ const Seaerch = ({ clearSearch,showClear,setAlert}) => {
             setAlert("please enter something","light")
         }else{
             
-            GithunContext.searchUsers(input.text);
+            GithubCont.searchUser(input.text);
             setInput({ text: '' })
         }
 
