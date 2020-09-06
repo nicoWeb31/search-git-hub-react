@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from '../src/component/layout/Navbar/NavBar';
 import './App.css';
 import Alert from './component/layout/alert/Alert';
 import About from './component/pages/About';
-import Search from './component/search/Seaerch';
+import Home from './component/pages/Home';
+import NotFound from './component/pages/NotFound';
 import Use from './component/users/Use';
-import User from './component/users/User';
-import GithubState from "./context/github/GithubState";
 import AlertState from "./context/alert/AlertState";
+import GithubState from "./context/github/GithubState";
 
 
 
@@ -28,19 +28,14 @@ const App = () => {
             />
             <Alert />
             <Switch>
-              <Route exact path="/" render={props => (
-
-                <>
-                  <div className="container">
-                    <Search />
-                    <User />
-                  </div>
-                </>
-              )} />
+              <Route exact path="/" component={Home}/>
 
               <Route exact path='/about' component={About} />
 
               <Route exact path='/user/:login' component={Use} />
+
+              <Route component={NotFound} />
+
 
             </Switch>
 
