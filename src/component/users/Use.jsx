@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Spinner from "../spinner/Spinner";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Repos from "../repos/RepoItems"
+import Repos from "../repos/Repos"
 
 const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
 
@@ -14,7 +14,7 @@ const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
         getUser(match.params.login);
         getUserRepos(match.params.login)
     }, [])
-
+    console.log("repos",repos)
 
     const {name, avatar_url,location,bio,blog,login,html_url,public_repos,public_gists,hireable,company,followers,following} = user;
 
@@ -87,7 +87,7 @@ const Use = ({match, user,loading,getUser,getUserRepos,repos}) => {
             </div>
         </div>
 
-        <Repos repos={repos}/>
+        <Repos repositprory={repos}/>
         </>
 
 

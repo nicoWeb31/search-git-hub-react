@@ -65,13 +65,13 @@ const App = () => {
       &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`).then((response) => {
         setRepos(response.data)
         setLoading(false)
-        console.log(response)
       })
     }
     fetchDat()
   }
   
-
+  
+  
 
 
   //set Alert 

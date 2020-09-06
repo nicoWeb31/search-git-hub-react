@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 
-const RepoItems = (props) => {
-    console.log("reposItems",props)
+const RepoItems = ({repo}) => {
+    console.log("reposItems",repo)
     return (
         <div className="card ">
             <h3>
-                <a href={props.html_url}>{props.name}</a>
+                <a href={repo.html_url}>{repo.name}</a>
             </h3>
         </div>
     );
 }
+RepoItems.propTypes={
+    repo : PropTypes.object.isRequired
+}
 
-// RepoItems.propTypes ={
-//     repo : PropTypes.object.isRequired
-// }
 
 export default RepoItems;
